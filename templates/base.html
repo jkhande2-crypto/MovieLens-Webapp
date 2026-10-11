@@ -1,0 +1,36 @@
+
+{# a folder holding every page template in the project and inside it, one shared file that every other page is built on top of. #}
+
+<!DOCTYPE html> {# telling the browser "interpret everything below this using the modern HTML5 standard." #}
+
+<html lang = "en"> {# declaring page language #}
+
+{# Conatining the information about the page #}
+<head>
+    <meta charset = "UTF-8"> {# character encoding used to interpret the file's text #}
+
+    <meta name = "viewport" content="width=device-width, initial-scale=1.0"> {# if used in mobile, telling the browser to render the page at the phone's actual screen width #}
+    <title>{% block title %}MovieLens{% endblock %} - MovieLens Data Pipeline</title>
+    <link rel ="stylesheet" href="/static/css/style.css"> {# connecting this page to the external CSS file that controls its visual apperance #}
+</head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="/">MovieLens</a>
+        <nav>
+            <a href="/">Browse </a>
+            <a href="/admin/dashboard">Admin </a>
+        </nav>
+    </header>
+    <main class ="site-main">
+        {% block content %} {% endblock %} {# named bloack left empty by default as this is the "hole" that every single page's actua unique content will fill in. #}
+    </main>
+    <footer class="site-footer">
+        <p>MovieLens</p>
+    </footer>
+    <script src="/static/js/main.js"></script>  {# loading Java script file the project is using #}
+</body>
+</html>
+
+<!-- Placing a <script> tag at the bottom ensures the entire page's HTML has already been read and built by the browser before the script runs,
+    since the script needs those elements to actually exit on the page already in order to find them. -->
+    

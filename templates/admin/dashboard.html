@@ -1,0 +1,49 @@
+
+{% extends "base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="admin-header">
+    <h1>Admin Dashboard</h1>
+    <div class="admin-actions">
+        <a href="/admin/movies/new" class="button">+ Add Movie</a>
+        <a href="/admin/logout" class="button button-secondary">Log Out</a>
+    </div>
+</div>
+
+{% if flash %}
+<p class="error-message">{{ flash }}</p>
+{% endif %}
+
+<table class="movie-table">
+    <thead>
+        <tr>
+            <th>ID</th><th>Title</th><th>Genres</th><th>Avg Rating</th><th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for movie in movies %}
+        <tr>
+            <td>{{ movie.movie_id }}</td>
+            <td>{{ movie.title }}</td>
+            <td class="genres">{{ movie.genres }}</td>
+            <td>{% if movie.avg_rating %}{{ "%.4f"|format(movie.avg_rating) }}
+                {% else %}&mdash;{% endif %}</td>
+            <td class="row-actions">
+                <a href="/admin/movies/{{ movie.movie_id }}/edit">Edit</a>
+                <form method="post" action="/admin/movies/{{ movie.movie_id }}/delete" class="inline-form js-confirm-delete">
+                    <button type="submit" class="link-button">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+
+{# class="inline-form js-confirm-delete" — two class names on the same element, separated by a space, is standard HTML: #}
+{# inline-form is purely a CSS styling hook (making the form sit inline with the "Edit" link rather than dropping to its own line), #}
+{# js-confirm-delete is the hook main.js will search for specifically to attach its confirmation-dialog behavior. #}
+{# Splitting these two concerns into two separately named classes, rather than one combined class doing double duty, is a small but genuinely good practice — it keeps "how this looks" and "what this does" independently adjustable. #}
+
+{#{% if flash %} — a "flash message" is a common term in web development for a short-lived, one-time message shown after an action (here, specifically the "cannot delete — still has ratings" message from routers/admin.py's delete_movie_submit function), as opposed to a permanent, always-visible piece of page content. #}

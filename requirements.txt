@@ -1,0 +1,24 @@
+# the web framework that receives browser requests and decides what to do with them.
+fastapi  
+
+# the actual program that runs your FastAPI application and listens for incoming connections; FastAPI describes what should happen, Uvicorn is what makes it actually happen.
+uvicorn[standard]
+
+# turns your HTML template files into finished, filled-in web pages.
+jinja2
+
+# lets Python talk to PostgreSQL directly, with no other database library involved.
+psycopg2-binary
+
+# handle password hashing for the admin login; the exact version 4.0.1.
+passlib[bcrypt]
+bcrypt==4.0.1
+
+# required by the login-session feature, to cryptographically sign the browser cookie that remembers an admin is logged in.
+itsdangerous
+
+# required for FastAPI to read data submitted from an HTML form ( login form and add/edit movie forms).
+python-multipart
+
+# lets Python read your .env file's values.
+python-dotenv

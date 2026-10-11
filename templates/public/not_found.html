@@ -1,0 +1,13 @@
+
+<!-- A clean 404 page shown when visitor requests a movie ID that does not exist
+ - the page routers/public.py's movie_detail route renders with status_code=404 when fetch_movie_by_id returns None.  -->
+
+{% extends "base.html" %} 
+{% block title %} Not Found {% endblock %} 
+
+{% block content %} 
+<h1> Movie Not Found</h1>
+<p> No movie exist with id {{ movie_id }}. </p>
+<a href ="/">&laquo; Back to all movies</a>
+
+{% endblock %}

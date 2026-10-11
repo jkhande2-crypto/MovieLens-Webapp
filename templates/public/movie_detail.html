@@ -1,0 +1,40 @@
+
+{% extends "base.html" %}
+{% block title %}{{ movie.title }}{% endblock %} 
+
+{% block content %} 
+<a href ="/" class ="back-link">&laquo; Back to all movies</a>
+
+<h1>{{movie.title }}</h1>
+<p class="genres">{{ movie.genres}} </p>
+
+<section>
+    <h2> Ratings ({{ ratings|length }}) </h2>
+    {% if ratings|length ==0 %} 
+    <p class ="empty-state">No one has rateed this movie yet. </p>
+    {% else %} 
+    <table class ="data-table">
+        <thead> <tr> <th> User ID </th> <th> Ratings</th></tr> </thead>
+        <tbody> 
+            {% for r in ratings %} 
+            <tr> <td> {{ r.user_id }} </td> <td>{{ "%.4f"|format(r.rating) }}</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %} 
+</section>
+
+
+<section>
+    <h2> Tags ({{ tags|length }})</h2>
+    {% if tags|length ==0 %} 
+    <p class ="empty-state"> No tags have been added to this movie.</p>
+    {% else %}
+    <ul class ="tag-list">      {# ul- unordered list ; ol- ordered llist #}
+        {% for t in tags %} 
+        <li>{{ t.tag }} <span class ="muted">- user {{ t.user_id }}</span></li>
+        {% endfor %} 
+    </ul>
+    {% endif %} 
+</section>
+{% endblock %} 

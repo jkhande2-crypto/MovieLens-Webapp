@@ -1,0 +1,28 @@
+
+
+{% extends "base.html" %} 
+{% block title %} Admin Login {% endblock %}
+
+{% block content %} 
+<div class ="login-box">
+    <h1> Admin Login</h1>
+
+    {% if error %} 
+    <p class ="error-message"> {{ error }}</p>
+    {% endif %} 
+
+    <form method ="post" action ="/admin/login">
+
+        {# the for attribute on a <label> matching the id on its corresponding <input> is what lets a visitor click directly on the text "Username" and have focus jump into that input box #}
+        <label for ="username"> Username </label>
+        <input type ="text" id="username" name="username" required autofocus>       <!-- autofocus automatically places the txt cursor into that field-->
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required> 
+        {# type = "password"- this is what causes a browser to display dots or asterisks instead of the actual typed characters, #}
+        {# purely a visual masking; the actual value submitted to the server is still the real, plain-text password #}
+
+        <button type="submit"> Log In</button>
+    </form>
+</div>
+{% endblock %} 

@@ -1,0 +1,306 @@
+/*
+  style.css — plain CSS, no framework, no build tools.
+
+  Palette rationale: Netflix's own interface is built on near-black
+  backgrounds (not pure #000, which reads as harsh and flat), a single
+  saturated red as the one accent color used sparingly for emphasis
+  and calls to action, and off-white (not pure #ffffff) body text,
+  since pure white on near-black produces a subtle vibration effect
+  that is genuinely tiring to read for long stretches. This palette
+  follows that same reasoning without copying Netflix's exact assets,
+  wordmark, or layout.
+*/
+
+:root {
+    --bg: #141414;
+    --surface: #1f1f1f;
+    --ink: #f2f2f2;
+    --muted: #b3b3b3;
+    --border: #333333;
+    --accent: #e50914;
+    --accent-dark: #b0060f;
+    --red-bg: #2d1210;
+    --red-text: #ffb3ab;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", Calibri, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+    background: #000000;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+}
+
+.site-header .brand {
+    color: var(--accent);
+    font-weight: bold;
+    font-size: 1.4rem;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+}
+
+.site-header nav a {
+    color: var(--ink);
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-size: 0.95rem;
+}
+
+.site-header nav a:hover {
+    color: var(--accent);
+}
+
+/* ---------- Main content area ---------- */
+
+.site-main {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+}
+
+h1 {
+    color: var(--ink);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+}
+
+.genres {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.muted {
+    color: var(--muted);
+}
+
+.empty-state {
+    color: var(--muted);
+    font-style: italic;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.error-message {
+    background: var(--red-bg);
+    border: 1px solid var(--accent);
+    color: var(--red-text);
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+}
+
+/* ---------- Forms ---------- */
+
+.search-form {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.search-form input {
+    flex: 1;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--ink);
+}
+
+form.movie-form,
+.login-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    max-width: 420px;
+}
+
+form label {
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-top: 0.6rem;
+    color: var(--muted);
+}
+
+form input {
+    padding: 0.6rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+    color: var(--ink);
+}
+
+button,
+.button {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-top: 0.75rem;
+    transition: background 0.15s ease-in-out;
+}
+
+button:hover,
+.button:hover {
+    background: var(--accent-dark);
+}
+
+.button-secondary {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--border);
+}
+
+.link-button {
+    background: none;
+    border: none;
+    color: var(--accent);
+    padding: 0;
+    margin: 0;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.inline-form {
+    display: inline;
+}
+
+.form-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+}
+
+.login-box {
+    max-width: 380px;
+    margin: 4rem auto;
+    padding: 2.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.login-box h1 {
+    margin-bottom: 1.5rem;
+}
+
+/* ---------- Tables ---------- */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background: var(--surface);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    text-align: left;
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+th {
+    color: var(--muted);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: #000000;
+}
+
+tbody tr:hover {
+    background: #2a2a2a;
+}
+
+.row-actions a,
+.row-actions button {
+    margin-right: 0.75rem;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.pagination a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.pagination a:hover {
+    color: var(--accent-dark);
+}
+
+.page-info {
+    color: var(--muted);
+    font-size: 0.9rem;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.admin-header h1 {
+    text-align: left;
+    margin-bottom: 0;
+}
+
+.admin-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.tag-list {
+    list-style: disc;
+    padding-left: 1.2rem;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: var(--accent);
+    text-decoration: none;
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border);
+    margin-top: 2rem;
+}

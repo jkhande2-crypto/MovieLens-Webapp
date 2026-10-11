@@ -1,0 +1,39 @@
+
+
+{% extends "base.html" %} 
+{% block title %}{% if mode == "create" %} Add Movie {% else %} Edit Movie {% endif %}{% endblock %} 
+
+{% block content %} 
+<h1> {% if mode == "create" %} Add a New Movie {% else %} Edit Movie {% endif %} </h1>
+
+{% if error %} 
+<p class="error-message"> {{ error }}</p>
+{% endif %} 
+
+<form method="post" action="{% if mode == 'create' %}/admin/movies/new{% else %}/admin/movies/{{movie.movie_id }}/edit{% endif %}" class="movie-form" >
+    <label for="movie_id"> Movie ID</label>
+    <input type="number" id="movie_id" name="movie_id" value="{% if movie %}{{ movie.movie_id }}{% endif %}" 
+    {% if mode == "edit" %}readonly{% endif %}
+    required >
+
+    <label for="title">Title</label>
+    <input type="text" id="title" name="title" value="{% if movie %} {{movie.title }} {% endif %}" required>
+
+    <label for="genres">Genres</label>
+    <input type="text" id="genres" name="genres" value="{% if movie %} {{ movie.genres }} {% endif %}" placeholder="Comedy|Drama|Romance">
+
+    <div class="form-actions">
+        <button type="submit"> {% if mode == "create" %} Add Movie {% else %} Save Changes {% endif %}</button>
+        <a href="/admin/dashboard" class="button button-secondary"> Cancel </a>
+    </div>
+</form>
+{% endblock %} 
+
+{# value="{% if movie %}{{ movie.movie_id }}{% endif %}"- this guard exists because on the "create" route, movie is passed in as None, and attempting {{ movie.movie_id }} directly against None would raise an error inside Jinja2. #}
+{# Checking {% if movie %} first means the value block is only reached at all when a real movie dictionary exists to read from. #}
+
+{# {% if mode == "edit" %}readonly{% endif %} inside the movie_id input- this is genuinely worth remembering precisely, since it is an easy mistake to get backward: readonly still submits the field's existing value along with the rest of the form and still displays it to the admin, but prevents it from being typed into or changed. #}
+{# This was chosen deliberately over disabled, which looks similar but behaves differently— a disabled field is excluded from the submitted form data entirely by the browser. #}
+{# Since routers/admin.py's edit_movie_submit function never even reads movie_id from the form body at all (only from the URL path), either choice would technically work here, but readonly is the correct one because it still shows the admin which movie they are editing, rather than the field simply appearing grayed out and potentially confusing. #}
+
+{# placeholder = "Comedy|Drama|Romance" - to show the admin the expected formatting used by the real dataset. #}

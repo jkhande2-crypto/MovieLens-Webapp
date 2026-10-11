@@ -1,0 +1,61 @@
+
+{% extends "base.html" %} {#  this is ow the child template connects itself to base.html. #}
+{# Means- " start with the entire structure of base.html file, then let me fill in its named blocks with my own content" #}
+{% block title %} Browse Movies {% endblock %}
+
+{% block content %}
+<h1> Browse Movies</h1>
+
+{# method ="get" -> a deliberate choice here, not the default by accident. A search does not change any data on the server; it only asks a question. #}
+{# HTTP places this type of URL query as a query string. #}
+
+<form method="get" action="/" class= "search-form">
+    <input type ="text" name ="q" placeholder ="Search by title..." value ="{{search}}" > 
+    {#{{}}is mustache syntax. this is how Jinja2 inserts an actual value into the output. #}
+    {#means: whatever the visitor already searched for stays visibly typed in the search box after the page reloads, rather than the box appearing empty again. #}
+    <button type ="submit">Search</button>
+</form>
+
+{% if movies|length ==0 %}  {# |length is Jinja2 filter like python's len(movie) function #}
+    <p class ="empty-state"> No movies matched your search.</p>
+
+{% else %}
+<table class ="movie-table">
+    <thead>
+        <tr>
+            <th> Title</th>
+            <th> Genres</th>
+            <th> Avg Ratings</th>
+            <th> Ratings</th>
+        </tr>
+    </thead>
+    <tbody>
+         {% for movie in movies %}  {# repeats the enclosed rows once per movie in the list passed from routers/public.py file #}
+
+         <tr> {# "." here matters because each row comes back as a dictionary rather than a plain tuple #}
+            <td> <a href ="/movies/{{ movie.movie_id}}">{{ movie.title }} </a></td>
+            <td class ="genres">{{ movie.genres }}</td>
+            <td> {% if movie.avg_rating %}{{ "%.4f" | format(movie.avg_rating) }}
+                {% else %} &mdash; 
+                {% endif %}
+            </td>
+            <td> {{ movie.rating_count }} </td>
+         </tr>
+          {% endfor %}
+    </tbody>
+</table>
+
+{# pagination link here builds a URL by hand-concatenating the search term and page number as those are the only 2 pieces that needs to survive moving between pgs. #}
+<div class ="pagination"> 
+     {% if page > 1 %}
+     <a href ="/?q={{ search }}&page={{ page - 1 }}">&laquo; Previous</a>
+     {% endif %}
+
+     <span class="page-into">Page {{ page }} of {{ total_pages }}</span>
+
+     {% if page < total_pages %}
+     <a href="/?q={{ search}}&page={{ page + 1 }}">Next &raquo;</a>
+     {% endif %}
+</div>
+{% endif %}
+{% endblock %} 

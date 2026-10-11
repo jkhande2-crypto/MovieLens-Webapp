@@ -1,0 +1,29 @@
+# ---- Secrets: never commit these ----
+.env
+.env.*
+!.env.example
+ 
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+ 
+# ---- Editors and OS ----
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+ 
+# ---- Dataset files (GroupLens licence does not allow redistribution) ----
+*.csv
+ml-*/
+ml-*.zip
+ 
+# ---- Logs and test caches ----
+*.log
+.pytest_cache/
+.coverage
+*.pptx
